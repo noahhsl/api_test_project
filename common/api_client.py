@@ -46,13 +46,19 @@ class ApiClient:
     def get(self,path,params=None):
         url = f'{self.base_url}{path}'
         logger.info(f'GET {url}')
+        logger.info(f'PARAMS {params}')
         response = requests.get(url,params=params,timeout=10)
         logger.info(f'RESPONSE {response.status_code}')
+        if response.status_code >=400:
+            logger.error(f'BODY {response.text}')
         return response
     def post(self,path,json=None):
         url=f'{self.base_url}{path}'
         logger.info(f"POST {url}")
+        logger.info(f'JSON {json}')
         response = requests.post(url,json=json,timeout=10)
         logger.info(f"RESPONSE {response.status_code}")
+        if response.status_code >=400:
+            logger.error(f'BODY {response.text}')
         return response
     
